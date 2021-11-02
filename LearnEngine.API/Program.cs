@@ -1,12 +1,7 @@
 using LearnEngine.API.Filters;
 using LearnEngine.API.Ioc;
-using LearnEngine.Infrastucture.Ioc;
-using LearnEngine.Infrastucture.Ioc.Filters;
 using MediatR;
-using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\LearnEngine.Domain\LearnEngine.Core.csproj" />
+	  <ProjectReference Include="..\LearnEngine.Core\LearnEngine.Core.csproj" />
 	</ItemGroup>
 
 </Project>

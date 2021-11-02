@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LearnEngine.Application.Queries.Material.GetAllCousesesQuery
 {
-    public class GetAllMaterialMetadatasQuery : IRequest<List<MaterialResponse>>
+    public sealed record GetAllMaterialMetadatasQuery : IRequest<List<MaterialResponse>>
     {
 
     }
