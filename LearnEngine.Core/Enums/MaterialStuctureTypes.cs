@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnEngine.Core.Enums
 {
-    public enum MaterialMetaTypes
+    public enum MaterialStuctureTypes : short
     {
         Material = 1,
         MaterialGroup = 2

@@ -5,9 +5,9 @@ using LearnEngine.Infrastucture.Settings.MongoSettings;
 
 namespace LearnEngine.Infrastucture.Repositories
 {
-    public class MaterialMetaRespository : BaseMongoRepository<MaterialMetadataEntity>, IMaterialMetaRespository
+    public class MaterialRespository : BaseMongoRepository<MaterialEntity>, IMaterialRespository
     {
-        public MaterialMetaRespository(IMongoDbSettings settings) : base(settings)
+        public MaterialRespository(IMongoDbSettings settings) : base(settings)
         {
         }
     }

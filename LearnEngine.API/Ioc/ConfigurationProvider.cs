@@ -1,5 +1,6 @@
 ﻿using LearnEngine.Infrastucture.Settings.MongoSettings;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson.Serialization.Conventions;
 
 namespace LearnEngine.API.Ioc
 {
@@ -7,6 +8,9 @@ namespace LearnEngine.API.Ioc
     {
         public static void AddMongoConfigurationSettings(this IServiceCollection services, IConfiguration configuration)
         {
+            var conventionPack = new ConventionPack { new CamelCaseElementNameConvention() };
+            ConventionRegistry.Register("camelCase", conventionPack, t => true);
+
             services.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
 
             services.AddSingleton<IMongoDbSettings>(serviceProvider =>

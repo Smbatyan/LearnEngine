@@ -3,7 +3,7 @@ using LearnEngine.Core.Repositories.Base;
 
 namespace LearnEngine.Core.Repositories
 {
-    public interface IMaterialMetaRespository : IBaseMongoRepository<MaterialMetadataEntity>
+    public interface IMaterialRespository : IBaseMongoRepository<MaterialEntity>
     {
 
     }

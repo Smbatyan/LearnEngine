@@ -13,7 +13,7 @@ namespace LearnEngine.API.Installers
     {
         public static void AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IMaterialMetaRespository, MaterialMetaRespository>();
+            services.AddScoped<IMaterialRespository, MaterialRespository>();
         }
     }
 }

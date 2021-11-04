@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnEngine.Core.Enums
 {
-    public enum AnswerTypes
+    public enum AnswerTypes : short
     {
         SingleChoice = 1,
         MultiChoice = 2,

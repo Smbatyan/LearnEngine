@@ -1,16 +1,38 @@
-﻿using System.Text.Json.Serialization;
+﻿using LearnEngine.Core.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LearnEngine.Application.ResponseModels
 {
-    /// <summary>
-    /// The Material class.
-    /// </summary>
     public record MaterialResponse
     {
         /// <summary>
-        /// Material Metadata
+        /// Unique identifier of material
         /// </summary>
-        public MaterialMetadataResponse Metadata { get; set; }
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Name of material
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The type id of material for example 1 - Text, 2 - Question, 3 - CC etc. 
+        /// </summary>
+        [EnumDataType(typeof(MaterialTypes))]
+        public short MaterialTypeId { get; set; }
+
+        /// <summary>
+        /// The type id of material meta for example 1 - Material, 2 - MaterialGroup
+        /// </summary>
+        [EnumDataType(typeof(MaterialStuctureTypes))]
+        public short MetaTypeId { get; set; }
+
+        /// <summary>
+        /// Markup of body 
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string Body { get; set; }
 
         /// <summary>
         /// Configurations in json format
@@ -18,9 +40,9 @@ namespace LearnEngine.Application.ResponseModels
         public object Configurations { get; set; }
 
         /// <summary>
-        /// Children Materials
+        /// Answers of question
         /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public List<MaterialResponse> Materials { get; set; }
+        public AnswerResponse Answer { get; set; }
     }
 }

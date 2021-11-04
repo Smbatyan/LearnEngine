@@ -4,9 +4,9 @@ namespace LearnEngine.Application.ResponseModels
 {
     public record AnswerResponse
     {
-        public List<string> Options { get; set; }
+        public List<AnswerOptionResponse> Options { get; set; }
         
-        public AnswerTypes AnswerTypeId { get; set; }
+        public short AnswerTypeId { get; set; }
 
         public string RightAnswerHash { get; set; }
 

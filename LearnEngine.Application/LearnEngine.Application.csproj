@@ -6,11 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Commands\Material\" />
-		<Folder Include="Mappers\" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.4" />
 		<PackageReference Include="MediatR" Version="9.0.0" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
 		<PackageReference Include="FluentValidation" Version="10.3.4" />
@@ -20,6 +16,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\LearnEngine.Core\LearnEngine.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Helpers\" />
 	</ItemGroup>
 
 </Project>

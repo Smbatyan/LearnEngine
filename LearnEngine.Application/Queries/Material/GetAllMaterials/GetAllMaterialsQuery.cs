@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearnEngine.Application.Queries.Material.GetAllCousesesQuery
+namespace LearnEngine.Application.Queries.Material
 {
-    public sealed record GetAllMaterialMetadatasQuery : IRequest<List<MaterialResponse>>
+    public sealed record GetAllMaterialsQuery : IRequest<List<MaterialResponse>>
     {
 
     }
