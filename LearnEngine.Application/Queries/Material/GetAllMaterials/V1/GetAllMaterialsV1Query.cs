@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LearnEngine.Application.Queries.Material
 {
-    public sealed record GetAllMaterialsQuery : IRequest<List<MaterialResponse>>
+    public sealed record GetAllMaterialsV1Query : IRequest<List<MaterialResponse>>
     {
 
     }

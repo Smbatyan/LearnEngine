@@ -9,6 +9,7 @@ namespace LearnEngine.Core.Enums
     public enum MaterialStuctureTypes : short
     {
         Material = 1,
-        MaterialGroup = 2
+        MaterialGroup = 2,
+        MetaMaterial = 3
     }
 }

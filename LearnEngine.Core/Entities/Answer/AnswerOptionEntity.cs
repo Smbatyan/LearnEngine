@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearnEngine.Core.Entities
+namespace LearnEngine.Core.Entities.Answer
 {
     public sealed class AnswerOptionEntity
     {

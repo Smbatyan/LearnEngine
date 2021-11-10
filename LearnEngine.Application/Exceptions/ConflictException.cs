@@ -4,17 +4,17 @@
     {
         public int StatusCode { get; set; } = 409;
         public bool NeedsLog { get; set; }
-        string IHttpResponseException.Key { get; set; }
+        string IHttpResponseException.Message { get; set; }
 
-        public ConflictException(string key) : base(key ?? "Conflict")
+        public ConflictException(string message) : base(message ?? "Conflict")
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = message;
         }
 
-        public ConflictException(string key, Exception innerException)
-            : base(key ?? "Conflict", innerException)
+        public ConflictException(string message, Exception innerException)
+            : base(message ?? "Conflict", innerException)
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = message;
         }
     }
 }

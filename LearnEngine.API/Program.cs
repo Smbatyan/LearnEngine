@@ -1,13 +1,14 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using LearnEngine.API.Attributes;
-using LearnEngine.API.Filters;
 using LearnEngine.API.Installers;
 using LearnEngine.API.Ioc;
-using LearnEngine.Application.Exceptions;
+using LearnEngine.Application.Commands.Material.Helper;
+using LearnEngine.Application.Helpers;
 using LearnEngine.Application.Mappers.AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,20 @@ builder.Services.AddSwaggerGen(c =>
 var assembly = AppDomain.CurrentDomain.Load("LearnEngine.Application");
 builder.Services.AddMediatR(assembly);
 
+builder.Services.AddApiVersioning(opt =>
+{
+    opt.ReportApiVersions = true;
+    
+    opt.AssumeDefaultVersionWhenUnspecified = true;
+
+    opt.DefaultApiVersion = ApiVersion.Default; // new ApiVersion(1, 0);
+
+    opt.ApiVersionReader = ApiVersionReader.Combine(
+            new MediaTypeApiVersionReader("x-api-version"),
+            new HeaderApiVersionReader("x-api-version")
+);
+});
+
 builder.Services.AddMvc(options =>
 {
     options.Filters.Add(typeof(ValidatorModelFilterAttribute));
@@ -43,19 +58,24 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 });
 
 builder.Services.AddSingleton<HttpExceptionHelper>();
+builder.Services.AddControllers();
 
 #region automapper
 
 builder.Services.AddAutoMapper(assembly);
+
 MapperConfiguration mapperConfig = new(mc =>
 {
     mc.AddProfile(new MaterialProfile());
+    mc.AddProfile(new MaterialGroupProfile());
 });
 
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 #endregion
+
+builder.Services.AddSingleton<IMaterialHelper, MaterialHelper>();
 
 builder.Services.AddRepositories();
 builder.Services.AddMongoConfigurationSettings(builder.Configuration);

@@ -4,17 +4,17 @@
     {
         public int StatusCode { get; set; } = 400;
         public bool NeedsLog { get; set; }
-        string? IHttpResponseException.Key { get; set; }
+        string IHttpResponseException.Message { get; set; }
 
-        public BadRequestException(string key = "bad_request") : base(key)
+        public BadRequestException(string message = "bad_request") : base(message)
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = message;
         }
 
-        public BadRequestException(string key, Exception innerException)
-            : base(key, innerException)
+        public BadRequestException(string message, Exception innerException)
+            : base(message, innerException)
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = message;
         }
     }
 }

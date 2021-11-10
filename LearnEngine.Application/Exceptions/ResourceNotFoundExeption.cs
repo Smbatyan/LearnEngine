@@ -6,16 +6,16 @@ namespace LearnEngine.Application.Exceptions
     {
         public int StatusCode { get; set; } = 404;
         public bool NeedsLog { get; set; }
-        string? IHttpResponseException.Key { get; set; }
+        string IHttpResponseException.Message { get; set; }
 
-        public ResourceNotFoundException(string key = "not_found") : base(key)
+        public ResourceNotFoundException(string message = null) : base(message ?? "not_found")
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = message;
         }
 
-        public ResourceNotFoundException(Exception inner , string key = "not_found") : base(key, inner)
+        public ResourceNotFoundException(Exception inner , string message = null) : base(message ?? "not_found", inner)
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = Message;
         }
 
         protected ResourceNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)

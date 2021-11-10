@@ -1,4 +1,5 @@
 ﻿using LearnEngine.Application.Exceptions;
+using LearnEngine.Application.Helpers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -111,7 +112,7 @@ namespace LearnEngine.Infrastucture.ClientServices
 
                 result = JsonSerializer.Deserialize<T>(resp);
             }
-            catch (HttpRequestException ex)
+            catch (Exception ex)
             {
                 string message = $"{BaseAddressUrl}{requestUrl} - {response?.Content?.ReadAsStringAsync()?.Result}";
                 _exceptionHelper.ThrowException(response.StatusCode, message, ex);

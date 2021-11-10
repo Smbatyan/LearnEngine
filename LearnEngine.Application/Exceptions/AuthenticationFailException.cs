@@ -10,17 +10,17 @@ namespace LearnEngine.Application.Exceptions
     {
         public int StatusCode { get; set; } = 403;
         public bool NeedsLog { get; set; }
-        string IHttpResponseException.Key { get; set; }
+        string IHttpResponseException.Message { get; set; }
 
-        public AuthenticationFailException(string key = null) : base(key ?? "forbidden")
+        public AuthenticationFailException(string message = null) : base(message ?? "forbidden")
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = message;
         }
 
-        public AuthenticationFailException(string key, Exception innerException)
-            : base(key, innerException)
+        public AuthenticationFailException(string message, Exception innerException)
+            : base(message, innerException)
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = message;
         }
     }
 }

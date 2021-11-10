@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearnEngine.Core.Entities
+namespace LearnEngine.Core.Entities.Answer
 {
     public sealed class AnswerEntity
     {
@@ -13,6 +13,6 @@ namespace LearnEngine.Core.Entities
 
         public short AnswerTypeId { get; set; }
 
-        public string RightAnswerHash { get; set; }
+        public string RightAnswer { get; set; }
     }
 }

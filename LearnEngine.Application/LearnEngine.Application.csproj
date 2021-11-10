@@ -18,8 +18,4 @@
 	  <ProjectReference Include="..\LearnEngine.Core\LearnEngine.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Helpers\" />
-	</ItemGroup>
-
 </Project>

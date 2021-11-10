@@ -2,15 +2,12 @@
 using LearnEngine.Application.Commands.Material;
 using LearnEngine.Application.Models.Answer;
 using LearnEngine.Application.ResponseModels;
-using LearnEngine.Core.Entities;
+using LearnEngine.Core.Entities.Answer;
+using LearnEngine.Core.Entities.Material;
+using LearnEngine.Core.Enums;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace LearnEngine.Application.Mappers.AutoMapper
 {
@@ -21,31 +18,31 @@ namespace LearnEngine.Application.Mappers.AutoMapper
             #region ToEntity
             CreateMap<CreateMaterialCommand, MaterialEntity>()
                 .ForMember(dest => dest.Configurations, opt => opt.Ignore())
+                .ForPath(dest => dest.MaterialTypeId, opt => opt.MapFrom(x => (short)x.MaterialTypeId))
+                .ForPath(dest => dest.StructureTypeId, opt => opt.MapFrom(x => (short)MaterialStuctureTypes.Material))
                 .AfterMap((src, dest) =>
                 {
-                    dest.Configurations = BsonSerializer.Deserialize<BsonDocument>(JsonSerializer.Serialize<object>(src.Configurations));
+                    if (src.Configurations is not null)
+                        dest.Configurations = BsonSerializer.Deserialize<BsonDocument>(JsonSerializer.Serialize(src.Configurations));                    
                 });
-            
+
             CreateMap<AnswerModel, AnswerEntity>();
             CreateMap<AnswerOptionModel, AnswerOptionEntity>();
+
             #endregion
 
             #region FromEntity
 
             CreateMap<MaterialEntity, MaterialResponse>()
                 .ForMember(dest => dest.Configurations, opt => opt.Ignore())
+                //.ForMember(dest => dest.Children, opt => opt.Ignore())
                 .AfterMap((src, dest) =>
                 {
+                    if (src.Configurations is not null)
+                        dest.Configurations = BsonSerializer.Deserialize<object>(src.Configurations);
+                    
+                });
 
-                    //var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-                    //JObject json = JObject.Parse(postBsonDoc.ToJson<MongoDB.Bson.BsonDocument>(jsonWriterSettings));
-
-                    //dest.Configurations = BsonTypeMapper.MapToDotNetValue(src.Configurations);
-                    dest.Configurations = BsonSerializer.Deserialize<object>(src.Configurations);
-
-                    //dest.Configurations = JsonSerializer.Deserialize<object>(src.Configurations.ToJson());
-                })
-                ;
             CreateMap<AnswerEntity, AnswerResponse>();
             CreateMap<AnswerOptionEntity, AnswerOptionResponse>();
 

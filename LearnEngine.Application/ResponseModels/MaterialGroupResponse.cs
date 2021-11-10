@@ -1,10 +1,9 @@
 ﻿using LearnEngine.Core.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace LearnEngine.Application.ResponseModels
 {
-    public record MaterialResponse
+    public class MaterialGroupResponse
     {
         /// <summary>
         /// Unique identifier of material
@@ -29,20 +28,13 @@ namespace LearnEngine.Application.ResponseModels
         public MaterialStuctureTypes StuctureTypeId { get; set; }
 
         /// <summary>
-        /// Markup of body 
-        /// </summary>
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string Body { get; set; }
-
-        /// <summary>
         /// Configurations in json format
         /// </summary>
         public object Configurations { get; set; }
 
         /// <summary>
-        /// Answers of question
+        /// List of children id
         /// </summary>
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public AnswerResponse Answer { get; set; }
+        public List<string> Children { get; set; }
     }
 }

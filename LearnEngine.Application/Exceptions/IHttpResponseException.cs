@@ -6,13 +6,13 @@ namespace LearnEngine.Application.Exceptions
     {
         int StatusCode { get; set; }
         bool NeedsLog { get; set; } // Will be used
-        string Key { get; set; }
+        string Message { get; set; }
 
         public ErrorResponse GenerateResponse()
         {
             ErrorResponse errorResponse = new()
             {
-                Key = this.Key 
+                Message = this.Message
             }; // TODO...
 
             return errorResponse;

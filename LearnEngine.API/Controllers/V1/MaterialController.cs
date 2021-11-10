@@ -4,9 +4,10 @@ using LearnEngine.Application.ResponseModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LearnEngine.API.Controllers
+namespace LearnEngine.API.Controllers.V1
 {
     [ApiController]
+    [ApiVersion("1.0")]
     [Route("api/[controller]")]
     public class MaterialController : ControllerBase
     {
@@ -19,7 +20,7 @@ namespace LearnEngine.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMaterialById(string id)
         {
-            GetMaterialByIdQuery query = new()
+            GetMaterialByIdV1Query query = new()
             {
                 Id = id
             };
@@ -31,20 +32,32 @@ namespace LearnEngine.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllMaterials()
         {
-            GetAllMaterialsQuery getAllMaterials = new();
+            GetAllMaterialsV1Query getAllMaterials = new();
             List<MaterialResponse> response = await _mediator.Send(getAllMaterials);
 
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateMaterialCommand command)
+        public async Task<IActionResult> CreateMaterial(CreateMaterialCommand command)
         {
-            MaterialResponse response = await _mediator.Send(command);
+            await _mediator.Send(command);
 
-            return Ok(response);
+            return Ok();
         }
 
-       
+        [HttpPost("Group")]
+        public async Task<IActionResult> CreateMaterialGroup(CreateMaterialGroupCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+
+        //[HttpGet("Tree/{materialId}")]
+        //public async Task<IActionResult> GetTree(string materialId)
+        //{
+        //    return null;
+        //}
     }
 }

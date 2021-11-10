@@ -1,22 +1,22 @@
 ﻿namespace LearnEngine.Application.Exceptions
 {
-    public class UnauthorizedAccessException : System.Exception, IHttpResponseException
+    public class UnauthorizedException : System.Exception, IHttpResponseException
     {
         public int StatusCode { get; set; } = 401;
         public bool NeedsLog { get; set; }
 
-        string? IHttpResponseException.Key { get; set; } = "unauthorized_access";
+        string IHttpResponseException.Message { get; set; } = "unauthorized_access";
 
-        public UnauthorizedAccessException() : base("unauthorized_access")
+        public UnauthorizedException() : base("unauthorized_access")
         {
         }
 
-        public UnauthorizedAccessException(string key) : base(key ?? "unauthorized_access")
+        public UnauthorizedException(string message) : base(message ?? "unauthorized_access")
         {
-            ((IHttpResponseException)this).Key = key;
+            ((IHttpResponseException)this).Message = Message;
         }
 
-        public UnauthorizedAccessException(string key, System.Exception? innerException)
+        public UnauthorizedException(string key, Exception innerException)
             : base(key ?? "unauthorized_access", innerException)
         {
         }

@@ -11,14 +11,14 @@ namespace LearnEngine.Application.Models.Answer
     {
         public string Text { get; set; }
 
-        public short HashOrder { get; set; }
+        //public short HashOrder { get; set; }
     }
 
     public class AnswerOptionModelValidator : AbstractValidator<AnswerOptionModel>
     {
         public AnswerOptionModelValidator()
         {
-            RuleFor(x => x.HashOrder).GreaterThan((short)0);
+            //RuleFor(x => x.HashOrder).GreaterThan((short)0);
             RuleFor(x => x.Text).NotEmpty();
         }
     }

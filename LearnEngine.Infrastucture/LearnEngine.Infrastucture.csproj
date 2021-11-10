@@ -12,6 +12,8 @@
   <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.13.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
+    <PackageReference Include="SoloLearn.AspNetCore.Auth" Version="1.26.0" />
+    <PackageReference Include="SoloLearn.AspNetCore.Infra" Version="1.26.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,11 +1,15 @@
-﻿using LearnEngine.Application.Models.Answer;
-using LearnEngine.Application.ResponseModels;
+﻿using LearnEngine.Application.ResponseModels;
 using LearnEngine.Core.Enums;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LearnEngine.Application.Commands.Material
 {
-    public sealed class CreateMaterialCommand : IRequest<Unit>
+    public sealed class CreateMaterialGroupCommand : IRequest<Unit>
     {
         public string Name { get; set; }
 
@@ -13,10 +17,8 @@ namespace LearnEngine.Application.Commands.Material
 
         public MaterialTypes MaterialTypeId { get; set; }
 
-        public string Body { get; set; }
-
         public object Configurations { get; set; }
 
-        public AnswerModel Answer { get; set; }
+        public List<string> ChildrenIds { get; set; }
     }
 }

@@ -1,37 +1,40 @@
 ﻿using AutoMapper;
-using LearnEngine.Application.ResponseModels;
+using LearnEngine.Application.Commands.Material.Helper;
 using LearnEngine.Core.Entities;
+using LearnEngine.Core.Entities.Material;
+using LearnEngine.Core.Enums;
 using LearnEngine.Core.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace LearnEngine.Application.Commands.Material
+namespace LearnEngine.Application.Commands.Material.CreateMaterial
 {
-    public sealed class CreateMaterialCommandHendler : IRequestHandler<CreateMaterialCommand, MaterialResponse>
+    public sealed class CreateMaterialCommandHendler : IRequestHandler<CreateMaterialCommand, Unit>
     {
-        private readonly IMaterialRespository _materialMetaRespository;
+        private readonly IMaterialRespository<BaseMaterialEntity> _materialRespository;
+        private readonly IMaterialHelper _materialHelper;
         private readonly IMapper _mapper;
 
-        public CreateMaterialCommandHendler(IMaterialRespository materialMetaRespository, IMapper mapper)
+        public CreateMaterialCommandHendler(IMaterialRespository<BaseMaterialEntity> materialRespository, IMapper mapper, IMaterialHelper materialHelper)
         {
             _mapper = mapper;
-            _materialMetaRespository = materialMetaRespository;
+            _materialRespository = materialRespository;
+            _materialHelper = materialHelper;
         }
 
-        public async Task<MaterialResponse> Handle(CreateMaterialCommand command, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateMaterialCommand command, CancellationToken cancellationToken)
         {
-            MaterialEntity entity = _mapper.Map<MaterialEntity>(command);
+            var entity = _mapper.Map<MaterialEntity>(command);
 
-            await _materialMetaRespository.InsertOneAsync(entity);
+            if (entity.MaterialTypeId == (short)MaterialTypes.Question)
+            {
+                _materialHelper.ManageAnswerHash(entity);
+            }
 
-            MaterialResponse response = _mapper.Map<MaterialResponse>(entity);
+            await _materialRespository.InsertOneAsync(entity);
 
-            return response;
+            return Unit.Value;
         }
-
     }
 }

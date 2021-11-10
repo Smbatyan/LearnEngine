@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LearnEngine.Application.Exceptions;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LearnEngine.Application.Exceptions
+namespace LearnEngine.Application.Helpers
 {
     public class HttpExceptionHelper
     {
@@ -14,7 +10,7 @@ namespace LearnEngine.Application.Exceptions
             throw statusCode switch
             {
                 HttpStatusCode.BadRequest => new BadRequestException(message),
-                HttpStatusCode.Unauthorized => new UnauthorizedAccessException(message),
+                HttpStatusCode.Unauthorized => new UnauthorizedException(message),
                 HttpStatusCode.Forbidden => new AuthenticationFailException(message),
                 HttpStatusCode.NotFound => new ResourceNotFoundException(message),
                 HttpStatusCode.Conflict => new ConflictException(message),
