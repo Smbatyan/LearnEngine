@@ -14,7 +14,7 @@ namespace LearnEngine.Application.Models.Answer
 
         public AnswerTypes AnswerTypeId { get; set; }
 
-        //public string RightAnswerHash { get; set; }
+        public string RightAnswer { get; set; }
     }
 
     public class AnswerModelValidator : AbstractValidator<AnswerModel>
@@ -22,7 +22,7 @@ namespace LearnEngine.Application.Models.Answer
         public AnswerModelValidator()
         {
             RuleFor(x => x.AnswerTypeId).IsInEnum();
-            //RuleFor(x => x.RightAnswerHash).NotEmpty();
+            RuleFor(x => x.RightAnswer).NotEmpty();
             RuleFor(x => x.Options).NotNull();
         }
     }

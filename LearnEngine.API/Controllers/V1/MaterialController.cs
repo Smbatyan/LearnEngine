@@ -1,7 +1,8 @@
-﻿using LearnEngine.Application.Commands.Material;
-using LearnEngine.Application.Queries.Material;
+﻿using LearnEngine.Application.Commands.Material.V1;
+using LearnEngine.Application.Queries.Material.V1;
 using LearnEngine.Application.ResponseModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnEngine.API.Controllers.V1
@@ -9,11 +10,12 @@ namespace LearnEngine.API.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
+    //[Authorize(Roles = "User")]
     public class MaterialController : ControllerBase
     {
         private readonly IMediator _mediator;
         public MaterialController(IMediator mediator)
-        {
+        { 
             _mediator = mediator;
         }
 
@@ -39,7 +41,7 @@ namespace LearnEngine.API.Controllers.V1
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMaterial(CreateMaterialCommand command)
+        public async Task<IActionResult> CreateMaterial(CreateMaterialV1Command command)
         {
             await _mediator.Send(command);
 
@@ -47,15 +49,15 @@ namespace LearnEngine.API.Controllers.V1
         }
 
         [HttpPost("Group")]
-        public async Task<IActionResult> CreateMaterialGroup(CreateMaterialGroupCommand command)
+        public async Task<IActionResult> CreateMaterialGroup(CreateMaterialGroupV1Command command)
         {
             await _mediator.Send(command);
 
             return Ok();
         }
 
-        //[HttpGet("Tree/{materialId}")]
-        //public async Task<IActionResult> GetTree(string materialId)
+        //[HttpGet("Learn/{materialId}")]
+        //public async Task<IActionResult> GetLearn(string materialId)
         //{
         //    return null;
         //}

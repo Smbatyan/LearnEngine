@@ -33,6 +33,11 @@ namespace LearnEngine.Application.ResponseModels
         public object Configurations { get; set; }
 
         /// <summary>
+        /// Descrition of Material Group
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// List of children id
         /// </summary>
         public List<string> Children { get; set; }

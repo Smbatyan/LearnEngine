@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace LearnEngine.Core.Enums
 {
-    public enum MaterialTypes : short
+    public enum MaterialStatuses
     {
-        Text = 1,
-        Question = 2,
-        CC = 3,
-        Lesson = 4,
-        Module = 5,
-        Course = 6
+        NotVerified = 1,
+        Verified = 2,
+        Hidden = 3,
+        Published = 4
     }
 }

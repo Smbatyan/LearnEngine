@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LearnEngine.Application.Commands.Material;
+using LearnEngine.Application.Commands.Material.V1;
 using LearnEngine.Application.Models.Answer;
 using LearnEngine.Application.ResponseModels;
 using LearnEngine.Core.Entities.Answer;
@@ -16,17 +16,19 @@ namespace LearnEngine.Application.Mappers.AutoMapper
         public MaterialProfile()
         {
             #region ToEntity
-            CreateMap<CreateMaterialCommand, MaterialEntity>()
+            CreateMap<CreateMaterialV1Command, MaterialEntity>()
                 .ForMember(dest => dest.Configurations, opt => opt.Ignore())
                 .ForPath(dest => dest.MaterialTypeId, opt => opt.MapFrom(x => (short)x.MaterialTypeId))
                 .ForPath(dest => dest.StructureTypeId, opt => opt.MapFrom(x => (short)MaterialStuctureTypes.Material))
                 .AfterMap((src, dest) =>
                 {
                     if (src.Configurations is not null)
-                        dest.Configurations = BsonSerializer.Deserialize<BsonDocument>(JsonSerializer.Serialize(src.Configurations));                    
+                        dest.Configurations = BsonSerializer.Deserialize<BsonDocument>(Newtonsoft.Json.JsonConvert.SerializeObject(src.Configurations));                    
                 });
 
-            CreateMap<AnswerModel, AnswerEntity>();
+            CreateMap<AnswerModel, AnswerEntity>()
+                .ForMember(dest => dest.RightAnswerHash, opt => opt.MapFrom(x => x.RightAnswer));
+
             CreateMap<AnswerOptionModel, AnswerOptionEntity>();
 
             #endregion
@@ -35,7 +37,7 @@ namespace LearnEngine.Application.Mappers.AutoMapper
 
             CreateMap<MaterialEntity, MaterialResponse>()
                 .ForMember(dest => dest.Configurations, opt => opt.Ignore())
-                //.ForMember(dest => dest.Children, opt => opt.Ignore())
+                .ForMember(dest => dest.StuctureTypeId, opt => opt.MapFrom(x=> (MaterialStuctureTypes)x.StructureTypeId))
                 .AfterMap((src, dest) =>
                 {
                     if (src.Configurations is not null)

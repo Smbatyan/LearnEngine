@@ -1,11 +1,7 @@
 ﻿using LearnEngine.Core.Repositories;
+using LearnEngine.Core.Repositories.MSSQL;
 using LearnEngine.Infrastucture.Repositories;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LearnEngine.Infrastucture.Repositories.MSSQL;
 
 namespace LearnEngine.API.Installers
 {
@@ -14,6 +10,8 @@ namespace LearnEngine.API.Installers
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IMaterialRespository<>), typeof(MaterialRespository<>));
+            services.AddScoped(typeof(IUserCourseRepository<>), typeof(UserCourseRepository<>));
+            services.AddScoped(typeof(IMaterilRelationRepository), typeof(MaterilRelationRepository));
         }
     }
 }

@@ -1,19 +1,11 @@
 ﻿using AutoMapper;
+using LearnEngine.Application.Queries.Material.V1;
 using LearnEngine.Application.ResponseModels;
-using LearnEngine.Core.Entities;
 using LearnEngine.Core.Entities.Material;
 using LearnEngine.Core.Repositories;
 using MediatR;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace LearnEngine.Application.Queries.Material
+namespace LearnEngine.Application.Queries.Material.GetMaterialById.V1
 {
     public sealed class GetMaterialByIdV1QueryHendler : IRequestHandler<GetMaterialByIdV1Query, MaterialResponse>
     {

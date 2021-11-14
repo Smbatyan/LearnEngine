@@ -33,6 +33,7 @@ namespace LearnEngine.API.Middlewares
                 string controllerName = httpContext.Request.RouteValues[_controller]?.ToString()?.ToLower();
                 string correlationId = httpContext.Request.Headers[_correlationId].ToString();
                 httpContext.Response.ContentType = MediaTypeNames.Application.Json;
+                httpContext.Response.Headers.Add("correlationId", correlationId);
                 //IdentityUserInfo identity = JWTUserExtractor.GetUserInfo(httpContext.User);
 
                 //ex.Data.AddResponseDefaultData(identity, correlationId); //TODO
@@ -46,7 +47,8 @@ namespace LearnEngine.API.Middlewares
                 }
                 else
                 {
-                    body = JsonSerializer.Serialize(_errorMessage);
+                    ErrorResponse errorResponse =new() { Message = _errorMessage };
+                    body = JsonSerializer.Serialize(errorResponse);
                     httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     _logger.CreateLogger(controllerName)?.LogError(ex.Message, ex.InnerException?.Message, ex.Data.ToString());
                 }

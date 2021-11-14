@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearnEngine.Application.Queries.Material
+namespace LearnEngine.Application.Queries.Material.V1
 {
     public sealed record GetAllMaterialsV1Query : IRequest<List<MaterialResponse>>
     {

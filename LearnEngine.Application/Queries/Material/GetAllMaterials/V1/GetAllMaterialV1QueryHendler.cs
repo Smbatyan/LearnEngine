@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LearnEngine.Application.Queries.Material.V1;
 using LearnEngine.Application.ResponseModels;
 using LearnEngine.Core.Entities.Material;
 using LearnEngine.Core.Repositories;
