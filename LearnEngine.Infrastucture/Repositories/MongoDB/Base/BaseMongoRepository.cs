@@ -1,4 +1,5 @@
-﻿using LearnEngine.Core.Attributes;
+﻿using LearnEngine.Application.Exceptions;
+using LearnEngine.Core.Attributes;
 using LearnEngine.Core.Entities.BaseMongoEntities;
 using LearnEngine.Core.Repositories.Base;
 using LearnEngine.Infrastucture.Settings.MongoSettings;
@@ -10,7 +11,7 @@ namespace LearnEngine.Infrastucture.Repositories.Base
 {
     public class BaseMongoRepository<TDocument> : IBaseMongoRepository<TDocument> where TDocument : IDocument
     {
-        private readonly IMongoCollection<TDocument> _collection;
+        protected readonly IMongoCollection<TDocument> _collection;
 
         public BaseMongoRepository(IMongoDbSettings settings)
         {
@@ -20,11 +21,10 @@ namespace LearnEngine.Infrastucture.Repositories.Base
 
         private protected string GetCollectionName(Type documentType)
         {
-            var a = ((BsonCollectionAttribute)documentType.GetCustomAttributes(
+            return ((BsonCollectionAttribute)documentType.GetCustomAttributes(
                     typeof(BsonCollectionAttribute),
                     true)
                 .FirstOrDefault())?.CollectionName;
-            return a;
         }
 
         public virtual IQueryable<TDocument> AsQueryable()
@@ -36,7 +36,7 @@ namespace LearnEngine.Infrastucture.Repositories.Base
             Expression<Func<TDocument, bool>> filterExpression)
         {
             var query = await _collection.FindAsync(filterExpression);
-            return query.ToEnumerable();  
+            return query.ToEnumerable();
         }
 
         public virtual IEnumerable<TProjected> FilterBy<TProjected>(
@@ -58,7 +58,11 @@ namespace LearnEngine.Infrastucture.Repositories.Base
 
         public virtual TDocument FindById(string id)
         {
-            var objectId = new ObjectId(id);
+            if(!ObjectId.TryParse(id, out ObjectId objectId))
+            {
+                throw new BadRequestException("invalid_object_id");
+            }
+
             var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, objectId);
             return _collection.Find(filter).SingleOrDefault();
         }
@@ -67,7 +71,11 @@ namespace LearnEngine.Infrastucture.Repositories.Base
         {
             return Task.Run(() =>
             {
-                var objectId = new ObjectId(id);
+                if (!ObjectId.TryParse(id, out ObjectId objectId))
+                {
+                    throw new BadRequestException("invalid_object_id");
+                }
+
                 var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, objectId);
                 return _collection.Find(filter).SingleOrDefaultAsync();
             });
@@ -117,7 +125,11 @@ namespace LearnEngine.Infrastucture.Repositories.Base
 
         public void DeleteById(string id)
         {
-            var objectId = new ObjectId(id);
+            if (!ObjectId.TryParse(id, out ObjectId objectId))
+            {
+                throw new BadRequestException("invalid_object_id");
+            }
+
             var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, objectId);
             _collection.FindOneAndDelete(filter);
         }
@@ -126,7 +138,11 @@ namespace LearnEngine.Infrastucture.Repositories.Base
         {
             return Task.Run(() =>
             {
-                var objectId = new ObjectId(id);
+                if (!ObjectId.TryParse(id, out ObjectId objectId))
+                {
+                    throw new BadRequestException("invalid_object_id");
+                }
+
                 var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, objectId);
                 _collection.FindOneAndDeleteAsync(filter);
             });

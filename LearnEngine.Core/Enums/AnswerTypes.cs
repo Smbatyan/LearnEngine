@@ -10,6 +10,7 @@ namespace LearnEngine.Core.Enums
     {
         SingleChoice = 1,
         MultiChoice = 2,
-        DragAndDrop = 3
+        DragAndDrop = 3,
+        Input = 4,
     }
 }

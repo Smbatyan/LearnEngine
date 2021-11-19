@@ -10,7 +10,7 @@ namespace LearnEngine.Application.Commands.Material.CreateMaterial
         {
             RuleFor(x => x.MaterialTypeId).IsInEnum();
             RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.Key).NotEmpty();
+            //RuleFor(x => x.Key).NotEmpty();
             RuleFor(x => x.Body).NotEmpty();
 
             RuleFor(x => x.Answer).NotEmpty()

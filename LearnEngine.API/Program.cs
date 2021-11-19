@@ -4,18 +4,15 @@ using LearnEngine.API.Attributes;
 using LearnEngine.API.Installers;
 using LearnEngine.API.Ioc;
 using LearnEngine.API.Middlewares;
+using LearnEngine.Application.Commands.Learn.Helper;
 using LearnEngine.Application.Commands.Material.Helper;
 using LearnEngine.Application.Helpers;
 using LearnEngine.Application.Mappers.AutoMapper;
 using LearnEngine.Infrastucture.Context;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.OpenApi.Models;
 using SoloLearn.AspNetCore.Infra;
-using SoloLearn.AspNetCore.Infra.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,6 +82,7 @@ builder.Services.AddSingleton(mapper);
 #endregion
 
 builder.Services.AddSingleton<IMaterialHelper, MaterialHelper>();
+builder.Services.AddSingleton<ILearnHelper, LearnHelper>();
 
 builder.Services.AddRepositories();
 builder.Services.AddMongoConfigurationSettings(builder.Configuration);

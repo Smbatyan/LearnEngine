@@ -1,4 +1,8 @@
-﻿using System;
+﻿using LearnEngine.Core.Attributes;
+using LearnEngine.Core.Entities.BaseMongoEntities;
+using LearnEngine.Core.Entities.Mongo.Learn;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +10,17 @@ using System.Threading.Tasks;
 
 namespace LearnEngine.Core.Entities.Learn
 {
-    public class UserCourseEntity
+    [BsonIgnoreExtraElements]
+    [BsonCollection("user-courses")]
+    public sealed class UserCourseEntity : Document
     {
-        public BaseMaterialEntity Material { get; set; }
+        public UserCourseEntity()
+        {
+            Courses = new();
+        }
 
-        public byte UserMaterialStatusId { get; set; } = 0;
+        public int UserId { get; set; }
 
-        public byte ComplationPercenatge { get; set; }
-
-        public List<UserMaterialEntity> Children { get; set; }
+        public List<CourseEntity> Courses { get; set; }
     }
 }

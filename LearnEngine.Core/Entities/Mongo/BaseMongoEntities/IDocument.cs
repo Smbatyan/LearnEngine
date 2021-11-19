@@ -8,6 +8,6 @@ namespace LearnEngine.Core.Entities.BaseMongoEntities
         [BsonElement("_id")]
         public ObjectId Id { get; set; }
 
-        public DateTime CreatedAt => Id.CreationTime;
+        //public DateTime CreatedAt => Id.CreationTime;
     }
 }

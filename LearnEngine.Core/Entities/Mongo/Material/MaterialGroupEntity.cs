@@ -5,15 +5,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace LearnEngine.Core.Entities.Material
 {
-    [BsonCollection("materials")]
     [BsonIgnoreExtraElements]
+    [BsonCollection("material-groups")]
     public sealed class MaterialGroupEntity : BaseMaterialEntity
     {
         public MaterialGroupEntity()
         {
             StructureTypeId = (short)MaterialStuctureTypes.MaterialGroup;
         }
-
-        public List<ObjectId> Children { get; set; }
     }
 }

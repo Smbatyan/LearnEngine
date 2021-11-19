@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LearnEngine.Application.Exceptions
+﻿namespace LearnEngine.Application.Exceptions
 {
     public class AuthenticationFailException : Exception, IHttpResponseException
     {
@@ -12,14 +6,16 @@ namespace LearnEngine.Application.Exceptions
         public bool NeedsLog { get; set; }
         string IHttpResponseException.Message { get; set; }
 
-        public AuthenticationFailException(string message = null) : base(message ?? "forbidden")
+        object IHttpResponseException.Data { get; set; }
+
+        public AuthenticationFailException(string message = "forbidden") : base(message)
         {
             ((IHttpResponseException)this).Message = message;
         }
 
-        public AuthenticationFailException(string message, Exception innerException)
-            : base(message, innerException)
+        public AuthenticationFailException(object data, string message = "forbidden") : base(message)
         {
+            ((IHttpResponseException)this).Data = data;
             ((IHttpResponseException)this).Message = message;
         }
     }

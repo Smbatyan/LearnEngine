@@ -9,12 +9,15 @@ namespace LearnEngine.Application.Commands.Material.V1
 
         public string  Description { get; set; }
 
-        public string Key { get; set; }
+        public List<string> Tags { get; set; }
 
         public MaterialTypes MaterialTypeId { get; set; }
 
         public object Configurations { get; set; }
 
+
         public List<string> ChildrenIds { get; set; }
+
+        public string ParentId { get; set; }
     }
 }

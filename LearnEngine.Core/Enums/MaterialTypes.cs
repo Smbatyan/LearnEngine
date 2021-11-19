@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LearnEngine.Core.Enums
+﻿namespace LearnEngine.Core.Enums
 {
     public enum MaterialTypes : short
     {
-        Text = 1,
+        Theory = 1,
         Question = 2,
-        CC = 3,
-        Lesson = 4,
-        Module = 5,
-        Course = 6
+        Lesson = 3,
+        CC = 4,
+        CR = 5,
+        TIY = 6,
+        Module = 7,
+        Course = 8
     }
 }

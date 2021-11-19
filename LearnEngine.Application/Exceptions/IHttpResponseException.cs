@@ -8,11 +8,14 @@ namespace LearnEngine.Application.Exceptions
         bool NeedsLog { get; set; } // Will be used
         string Message { get; set; }
 
+        public object Data { get; set; }
+
         public ErrorResponse GenerateResponse()
         {
             ErrorResponse errorResponse = new()
             {
-                Message = this.Message
+                Message = this.Message,
+                Data = this.Data
             }; // TODO...
 
             return errorResponse;

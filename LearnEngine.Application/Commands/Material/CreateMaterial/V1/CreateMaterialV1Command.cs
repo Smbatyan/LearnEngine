@@ -8,8 +8,6 @@ namespace LearnEngine.Application.Commands.Material.V1
     {
         public string Name { get; set; }
 
-        public string Key { get; set; }
-
         public MaterialTypes MaterialTypeId { get; set; }
 
         public string Body { get; set; }
@@ -17,5 +15,7 @@ namespace LearnEngine.Application.Commands.Material.V1
         public object Configurations { get; set; }
 
         public AnswerModel Answer { get; set; }
+
+        public int ForeignId { get; set; }
     }
 }

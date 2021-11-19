@@ -3,6 +3,7 @@ using LearnEngine.Infrastucture.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnEngine.Infrastucture.Migrations
 {
     [DbContext(typeof(LearnEngineDbContext))]
-    partial class LearnEngineDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211115155056_manytomanytest")]
+    partial class manytomanytest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,15 +26,13 @@ namespace LearnEngine.Infrastucture.Migrations
             modelBuilder.Entity("LearnEngine.Core.Entities.SQL.Node", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<short>("MaterialTypeId")
                         .HasColumnType("smallint");
 
                     b.Property<string>("ParentId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -42,10 +42,10 @@ namespace LearnEngine.Infrastucture.Migrations
             modelBuilder.Entity("NodeNode", b =>
                 {
                     b.Property<string>("ParentNodesId")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SubNodesId")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ParentNodesId", "SubNodesId");
 

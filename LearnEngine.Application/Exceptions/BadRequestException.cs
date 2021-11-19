@@ -5,15 +5,16 @@
         public int StatusCode { get; set; } = 400;
         public bool NeedsLog { get; set; }
         string IHttpResponseException.Message { get; set; }
+        object IHttpResponseException.Data { get; set; }
 
         public BadRequestException(string message = "bad_request") : base(message)
         {
             ((IHttpResponseException)this).Message = message;
         }
 
-        public BadRequestException(string message, Exception innerException)
-            : base(message, innerException)
+        public BadRequestException(object data, string message = "bad_request") : base(message)
         {
+            ((IHttpResponseException)this).Data = data;
             ((IHttpResponseException)this).Message = message;
         }
     }

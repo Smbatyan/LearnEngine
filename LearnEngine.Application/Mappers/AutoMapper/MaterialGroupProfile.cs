@@ -22,15 +22,15 @@ namespace LearnEngine.Application.Mappers.AutoMapper
                     if (src.Configurations is not null)
                         dest.Configurations = BsonSerializer.Deserialize<BsonDocument>(Newtonsoft.Json.JsonConvert.SerializeObject(src.Configurations));
 
-                    if(src.ChildrenIds.Any())
-                    {
-                        dest.Children ??= new();
+                    //if(src.ChildrenIds.Any())
+                    //{
+                    //    dest.Children ??= new();
 
-                        foreach (var child in src.ChildrenIds)
-                        {
-                            dest.Children.Add(ObjectId.Parse(child));
-                        }
-                    }
+                    //    foreach (var child in src.ChildrenIds)
+                    //    {
+                    //        dest.Children.Add(ObjectId.Parse(child));
+                    //    }
+                    //}
                 });
 
             CreateMap<MaterialGroupEntity, MaterialGroupResponse>();

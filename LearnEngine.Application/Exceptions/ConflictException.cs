@@ -5,15 +5,16 @@
         public int StatusCode { get; set; } = 409;
         public bool NeedsLog { get; set; }
         string IHttpResponseException.Message { get; set; }
+        object IHttpResponseException.Data { get; set; }
 
-        public ConflictException(string message) : base(message ?? "Conflict")
+        public ConflictException(string message = "conflict") : base(message)
         {
             ((IHttpResponseException)this).Message = message;
         }
 
-        public ConflictException(string message, Exception innerException)
-            : base(message ?? "Conflict", innerException)
+        public ConflictException(object data, string message = "conflict") : base(message)
         {
+            ((IHttpResponseException)this).Data = data;
             ((IHttpResponseException)this).Message = message;
         }
     }

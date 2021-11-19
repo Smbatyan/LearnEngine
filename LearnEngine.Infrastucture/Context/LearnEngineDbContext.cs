@@ -15,29 +15,26 @@ namespace LearnEngine.Infrastucture.Context
         {
         }
 
-        //public DbSet<Material> Materials { get; set; }
-        //public DbSet<MaterialRelations> Relations { get; set; }
-        public DbSet<Relation> Relation { get; set; }
-        public DbSet<Material> Material { get; set; }
+        public DbSet<CompactMaterial> Materials { get; set; }
+
+        public DbSet<Relation> Relations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Relation>()
-                .HasKey(e => new { e.ParentId, e.MaterialId });
+            modelBuilder.Entity<Relation>().HasNoKey();
 
-            modelBuilder.Entity<Relation>()
-                .HasOne(e => e.Parent)
-                .WithMany(e => e.Children)
-                .HasForeignKey(e => e.ParentId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Node>()
+            //    .HasOne(pt => pt.Id)
+            //    .WithMany(p => p.)
+            //    .HasForeignKey(pt => pt.StatusId);
 
-            //modelBuilder.Entity<Relation>()
-            //    .HasOne(e => e.Material)
-            //    .WithMany(e => e.Parents)
-            //    .HasForeignKey(e => e.MaterialId)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Node>()
+            //    .HasMany(p => p.SubNodes)
+            //    .WithMany(p => p.ParentNodes);
+            //    //.HasForeignKey(p => p.)
+            //    //.HasPrincipalKey(p=> p.Id);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

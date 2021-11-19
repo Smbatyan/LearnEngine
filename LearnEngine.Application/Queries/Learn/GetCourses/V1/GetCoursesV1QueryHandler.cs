@@ -22,8 +22,7 @@ namespace LearnEngine.Application.Queries.Learn.GetRoots.V1
         public async Task<List<CourseRespons>> Handle(GetCoursesV1Query request, CancellationToken cancellationToken)
         {
             IEnumerable<MaterialGroupEntity> materialEntityGroups = await _materialRespository
-                .FilterByAsync(x => x.MaterialTypeId == (short)MaterialTypes.Course &&
-                                    x.StructureTypeId == (short)MaterialStuctureTypes.MaterialGroup); // && x.StatusId == (short)MaterialStatuses.Published);
+                .FilterByAsync(x => x.MaterialTypeId == (short)MaterialTypes.Course); // && x.StatusId == (short)MaterialStatuses.Published);
 
             List<CourseRespons> response = _mapper.Map<List<CourseRespons>>(materialEntityGroups);
 

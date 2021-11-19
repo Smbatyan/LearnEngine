@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace LearnEngine.Application.Exceptions
+﻿namespace LearnEngine.Application.Exceptions
 {
     public class ResourceNotFoundException : System.Exception, IHttpResponseException
     {
@@ -8,19 +6,17 @@ namespace LearnEngine.Application.Exceptions
         public bool NeedsLog { get; set; }
         string IHttpResponseException.Message { get; set; }
 
-        public ResourceNotFoundException(string message = null) : base(message ?? "not_found")
+        object IHttpResponseException.Data { get; set; }
+
+        public ResourceNotFoundException(string message = "not_found") : base(message)
         {
             ((IHttpResponseException)this).Message = message;
         }
 
-        public ResourceNotFoundException(Exception inner , string message = null) : base(message ?? "not_found", inner)
+        public ResourceNotFoundException(object data, string message = "not_found") : base(message)
         {
-            ((IHttpResponseException)this).Message = Message;
-        }
-
-        protected ResourceNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            
+            ((IHttpResponseException)this).Data = data;
+            ((IHttpResponseException)this).Message = message;
         }
 
     }
